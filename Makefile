@@ -1,16 +1,19 @@
 # Detect architecture and set appropriate image
 ARCH := $(shell uname -m)
-ifeq ($(ARCH), arm64)
+ifeq ($(ARCH), arm64) # ARM64
   CONTAINER_NAME := arm64v8/ros:humble
-else
+else # x86_64
   CONTAINER_NAME := osrf/ros:humble-desktop
 endif
 
-build:
-	docker build . -t ${IMAGE_NAME}
+pull:
+	docker pull ${CONTAINER_NAME}
+
+build: pull
+  docker build . -t ${IMAGE_NAME} --build-arg BASE_IMAGE=${CONTAINER_NAME}
 
 novnc:
-	docker run -d --rm --net=ros \
+  docker run -d --rm --net=ros \
 	--env="DISPLAY_WIDTH=3000" \
 	--env="DISPLAY_HEIGHT=1800" \
 	--env="RUN_XTERM=no" \
@@ -26,4 +29,5 @@ bash:
 	${CONTAINER_NAME}
 
 arch:
-	@echo "Make will pull the following image: ${CONTAINER_NAME}"
+	@echo "Architecture: ${ARCH}"
+	@echo "Container: ${CONTAINER_NAME}"

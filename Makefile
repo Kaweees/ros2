@@ -1,5 +1,10 @@
-# Add the name of the image for this command to work!
-CONTAINER_NAME := osrf/ros:humble-desktop
+# Detect architecture and set appropriate image
+ARCH := $(shell uname -m)
+ifeq ($(ARCH), arm64)
+  CONTAINER_NAME := arm64v8/ros:humble
+else
+  CONTAINER_NAME := osrf/ros:humble-desktop
+endif
 
 build:
 	docker build . -t ${IMAGE_NAME}

@@ -1,25 +1,18 @@
+# Use ROS2 Humble Hawksbill as base image
 ARG BASE_IMAGE=osrf/ros:humble-desktop
 FROM $BASE_IMAGE
-
 ARG BASE_IMAGE
 
-# Install additional dependencies
+# Install necessary packages
 RUN apt-get update && apt-get install -y \
-  python3-pip \
-  python3-colcon-common-extensions \
+  ros-humble-turtlesim \
   && rm -rf /var/lib/apt/lists/*
 
-# Create a workspace directory
-WORKDIR /CPE416
+# Set up ROS2 environment
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
-# Add any additional ROS2 packages you need
-RUN apt-get update && apt-get install -y \
-  ros-humble-rqt \
-  ros-humble-rqt-common-plugins \
-  && rm -rf /var/lib/apt/lists/*
-
-# Source ROS2 in every new shell
-RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc
+# Set working directory
+WORKDIR /ros2_ws
 
 # Keep container running
 CMD ["bash"]

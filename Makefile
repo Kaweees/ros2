@@ -40,7 +40,7 @@ network:
 	docker network create ${NETWORK_NAME} 2>/dev/null || true
 
 # Rule to run the container
-run: network build
+run: network build novnc
 	docker run -it --rm \
 		--name $(TARGET) \
 		--network $(NETWORK_NAME) \
@@ -49,18 +49,11 @@ run: network build
 		-v zsh_history:/root/.local/share/zinit \
 		-v Documents:/root/Documents \
 		-w /ros2_ws \
+		--env="DISPLAY=novnc:0.0" \
 		${TARGET}
-# run: network build
-# 	docker run -it --rm \
-# 		--name $(TARGET) \
-# 		--network $(NETWORK_NAME) \
-# 		${TARGET}
-# 		-v $(shell pwd)/ros2_ws:/ros2_ws \
-# 		-w /ros2_ws \
-# 		$(TARGET)
 
 # Rule to run the VNC server
-novnc: network build
+novnc: network build clean
 	docker run -d --rm --net=${NETWORK_NAME} \
 	--env="DISPLAY_WIDTH=3000" \
 	--env="DISPLAY_HEIGHT=1800" \

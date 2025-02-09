@@ -5,6 +5,7 @@
 # -----------------------------------------------------------------------------
 # The container name.
 TARGET := ros2
+
 # The container network name.
 NETWORK_NAME := ros
 # The base container image based on your architecture.
@@ -40,26 +41,33 @@ network:
 	docker network create ${NETWORK_NAME} 2>/dev/null || true
 
 # Rule to run the container
-run: network build novnc
-	docker run -it --rm \
-		--name $(TARGET) \
-		--network $(NETWORK_NAME) \
+run:
+	docker run -d --rm --net=${NETWORK_NAME} \
+		--env="DISPLAY=novnc:0.0" \
+		--env="QT_X11_NO_MITSHM=1" \
+		--env="LIBGL_ALWAYS_INDIRECT=0" \
 		-v ros2_workspace:/ros2_ws \
 		-v zsh_data:/root/.config/zsh \
 		-v zsh_history:/root/.local/share/zinit \
 		-v Documents:/root/Documents \
 		-w /ros2_ws \
-		--env="DISPLAY=novnc:0.0" \
-		${TARGET}
+		--name $(TARGET) \
+		${TARGET} \
+		tail -f /dev/null
 
 # Rule to run the VNC server
-novnc: network build clean
+novnc: network build
 	docker run -d --rm --net=${NETWORK_NAME} \
 	--env="DISPLAY_WIDTH=3000" \
 	--env="DISPLAY_HEIGHT=1800" \
 	--env="RUN_XTERM=no" \
+	--env="OPENGL_DRIVER=1" \
 	--name=novnc -p=8080:8080 \
 	theasp/novnc:latest
+
+# Rule to run the zsh shell
+zsh:
+	docker exec -it $(TARGET) zsh
 
 # Rule to clean the container
 clean:

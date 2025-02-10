@@ -49,7 +49,6 @@ run:
 		-v $(PWD)/ros_ws/:/ros2_ws/:delegated \
 		-v zsh_data:/root/.config/zsh \
 		-v zsh_history:/root/.local/share/zinit \
-		-v Documents:/root/Documents \
 		-w /ros2_ws \
 		--name $(TARGET) \
 		${TARGET} \

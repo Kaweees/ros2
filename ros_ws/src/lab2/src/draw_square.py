@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 import time
+import math
 
 
 class DrawSquare(Node):
@@ -20,32 +21,56 @@ class DrawSquare(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
         # Initialize state variables
-        self.state = "forward"
-        self.start_time = time.time()
-        self.side_length_time = 2.0  # Time to move forward
-        self.turn_time = 1.57  # Time to turn (approximately 90 degrees)
 
-    def move_turtle(self):
-        msg = Twist()
-        current_time = time.time() - self.start_time
+        # Think of this flag as a FSM,
+        # or that the turtle has two modes of operation.
+        # The robot is either turning in place, or not turning in place
+        # i.e. moving forward.
+        self.turning: bool = False
 
-        if self.state == "forward":
-            # Move forward
-            msg.linear.x = 1.0
-            msg.angular.z = 0.0
-            if current_time >= self.side_length_time:
-                self.state = "turn"
-                self.start_time = time.time()
+        # Let's create two messages to send to the robot depending
+        # on the mode its in.
+        # What should their type be (should the same as 'Import' above)
 
-        elif self.state == "turn":
-            # Turn 90 degrees
-            msg.linear.x = 0.0
-            msg.angular.z = 1.0
-            if current_time >= self.turn_time:
-                self.state = "forward"
-                self.start_time = time.time()
+        # If I want the robot to move "1m forward" what should
+        # the speed be, given the timer is running at 1hz?
+        # (Note that values are in m/s)
+        # Along which axis should I move in?
+        self.forward_msg = Twist()  # move 1m forward
+        self.forward_msg.linear.x = 1.0
+        self.forward_msg.linear.y = 0.0
+        self.forward_msg.linear.z = 0.0
+        self.forward_msg.angular.x = 0.0
+        self.forward_msg.angular.y = 0.0
+        self.forward_msg.angular.z = 0.0
 
-        self.publisher_.publish(msg)
+        # What if I want the robot to turn 90 degrees?
+        # Along which axis?
+        self.turn_msg = Twist()  # turn 90 degrees
+        self.turn_msg.linear.x = 0.0
+        self.turn_msg.linear.y = 0.0
+        self.turn_msg.linear.z = 0.0
+        self.turn_msg.angular.x = 0.0
+        self.turn_msg.angular.y = 0.0
+        self.turn_msg.angular.z = math.pi / 2  # (π/2 rad/s)
+
+    # Callback for the events
+    def timer_callback(self):
+        # If robot is turning
+        if self.turning:
+            # Call publisher here
+            self.get_logger().info("Robot is Turning!")
+            self.publisher_.publish(self.turn_msg)
+        else:
+            # Call publisher here
+            self.get_logger().info("Robot is Moving Forward!")
+            self.publisher_.publish(self.forward_msg)
+
+        # Get logger function call similar to 'cout' in C++
+        # or 'print()' in python
+
+        # Flip the mode of the robot
+        self.turning = not self.turning
 
 
 def main(args=None):

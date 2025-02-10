@@ -21,6 +21,8 @@ setup(
     entry_points={
         "console_scripts": [
             "draw_square = src.draw_square:main",
+            "draw_spiral = src.draw_spiral:main",
+            "drive_to_point = src.drive_to_point:main",
         ],
     },
 )

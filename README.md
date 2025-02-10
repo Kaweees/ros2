@@ -50,25 +50,35 @@ To get a local copy of the project up and running on your machine, follow these 
 
    ```sh
    git clone https://github.com/Kaweees/ros2.git
-   cd modern-python
+   cd ros2
+   sudo chown -R $USER:$(id -gn $USER) .
    ```
 
-2. Install the environment and the pre-commit hooks
+2. Install the environment
 
    ```sh
    make install
    ```
 
-3. Run the pre-commit hooks
+3. Build the project
 
    ```sh
-   uv run pre-commit run -a
+   colcon build --packages-select lab1
    ```
 
-4. Run the pro
+4. Source the project
 
    ```sh
+   source install/setup.bash   # if using bash
+   # OR
+   source install/setup.zsh    # if using zsh
+   ```
 
+5. Run the project
+
+   ```sh
+   ros2 run lab1 talker
+   ros2 run lab1 squared
    ```
 
 <!-- PROJECT FILE STRUCTURE -->

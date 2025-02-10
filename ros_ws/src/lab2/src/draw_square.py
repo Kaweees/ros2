@@ -4,9 +4,9 @@ from geometry_msgs.msg import Twist
 import time
 
 
-class SquareDrawer(Node):
+class DrawSquare(Node):
     def __init__(self):
-        super().__init__("square_drawer")
+        super().__init__("draw_square")
         # Create publisher for cmd_vel topic
         self.publisher_ = self.create_publisher(Twist, "turtle1/cmd_vel", 10)
         # Create timer for movement control
@@ -42,7 +42,7 @@ class SquareDrawer(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    square_drawer = SquareDrawer()
+    square_drawer = DrawSquare()
     rclpy.spin(square_drawer)
     square_drawer.destroy_node()
     rclpy.shutdown()

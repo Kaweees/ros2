@@ -6,11 +6,19 @@ import time
 
 class DrawSquare(Node):
     def __init__(self):
+        # Init the node with a name (this is the name that appears when running)
+        # 'ros2 node list'
         super().__init__("draw_square")
+
         # Create publisher for cmd_vel topic
-        self.publisher_ = self.create_publisher(Twist, "turtle1/cmd_vel", 10)
+        self.publisher_ = self.create_publisher(
+            Twist, "turtle1/cmd_vel", 10
+        )  # Message Type | Topic Name | Queue Length
+
         # Create timer for movement control
-        self.timer = self.create_timer(0.1, self.move_turtle)
+        timer_period = 1.0  # Time between function calls (1Hz)
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+
         # Initialize state variables
         self.state = "forward"
         self.start_time = time.time()
@@ -42,9 +50,18 @@ class DrawSquare(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    square_drawer = DrawSquare()
-    rclpy.spin(square_drawer)
-    square_drawer.destroy_node()
+
+    draw_square = DrawSquare()
+
+    # Spin function *important*
+    # makes sure that the program does not terminate
+    # immediately
+    rclpy.spin(draw_square)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    draw_square.destroy_node()
     rclpy.shutdown()
 
 

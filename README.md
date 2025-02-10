@@ -50,8 +50,9 @@ To get a local copy of the project up and running on your machine, follow these 
 
    ```sh
    git clone https://github.com/Kaweees/ros2.git
-   cd ros2
-   sudo chown -R $USER:$(id -gn $USER) .
+   sudo chown -R $USER:$(id -gn $USER) ros2
+   cd ros2/
+
    ```
 
 2. Install the environment
@@ -60,13 +61,27 @@ To get a local copy of the project up and running on your machine, follow these 
    make install
    ```
 
-3. Build the project
+3. Create a new ROS2 workspace
 
    ```sh
-   colcon build --packages-select lab1
+   mkdir -p ros2_ws/src
+   cd ros2_ws
    ```
 
-4. Source the project
+4. Create a new ROS2 package
+
+   ```sh
+   ros2 pkg create  <package_name> --build-type ament_cmake --dependencies rclcpp rclpy std_msgs # CMake
+   ros2 pkg create  <package_name> --build-type ament_python # Python
+   ```
+
+5. Build the package
+
+   ```sh
+   colcon build --packages-select <package_name>
+   ```
+
+6. Source the project
 
    ```sh
    source install/setup.bash   # if using bash
@@ -74,11 +89,10 @@ To get a local copy of the project up and running on your machine, follow these 
    source install/setup.zsh    # if using zsh
    ```
 
-5. Run the project
+7. Run the package node
 
    ```sh
-   ros2 run lab1 talker
-   ros2 run lab1 squared
+   ros2 run <package_name> <node_name>
    ```
 
 <!-- PROJECT FILE STRUCTURE -->

@@ -19,12 +19,12 @@ class NumberSquarer(Node):
         # Square the received number
         input_number = msg.data
         squared = input_number * input_number
-        
+
         # Publish the squared number
         squared_msg = Int32()
         squared_msg.data = squared
         self.publisher_.publish(squared_msg)
-        self.get_logger().info('Received: %d, Publishing squared: %d' % 
+        self.get_logger().info('Received: %d, Publishing squared: %d' %
                               (input_number, squared))
 
 def main(args=None):
@@ -35,4 +35,4 @@ def main(args=None):
     rclpy.shutdown()
 
 if __name__ == '__main__':
-    main() 
+    main()

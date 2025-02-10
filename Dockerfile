@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   wget \
   neovim \
   openssh-client \
+  fzf \
   libnotify-bin \
   && rm -rf /var/lib/apt/lists/*
 
@@ -32,7 +33,7 @@ RUN chsh -s /bin/zsh
 # Set up ROS2 environment
 RUN echo "source /opt/ros/humble/setup.zsh" >> ~/.zshrc
 
-# Set working directory
+# Create and set working directory
 WORKDIR /ros2_ws
 
 # Keep container running

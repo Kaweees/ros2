@@ -15,6 +15,11 @@ RUN apt-get update && apt-get install -y \
   openssh-client \
   fzf \
   libnotify-bin \
+  libignition-cmake2-dev \
+  ros-humble-ros-gz \
+  libignition-plugin-dev \
+  libignition-common4-dev \
+  libignition-gazebo6-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # Install the Gitstatus extension

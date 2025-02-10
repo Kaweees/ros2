@@ -71,8 +71,8 @@ To get a local copy of the project up and running on your machine, follow these 
 4. Create a new ROS2 package
 
    ```sh
-   ros2 pkg create  <package_name> --build-type ament_cmake --dependencies rclcpp rclpy std_msgs # CMake
-   ros2 pkg create  <package_name> --build-type ament_python # Python
+   ros2 pkg create <package_name> --build-type ament_cmake --dependencies rclcpp rclpy std_msgs # CMake
+   ros2 pkg create <package_name> --build-type ament_python # Python
    ```
 
 5. Build the package

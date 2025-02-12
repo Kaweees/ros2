@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 # Following directive defines the project name.
 project(ros_gz_example_gazebo)
 
+
 # Following directives find required packages and load their configuration.
 # The 'set' directive defines a variable (e.g. 'GZ_PLUGIN_VER').
 # Such variables can be used lateron in the CMakeLists.txt file.
@@ -33,11 +34,11 @@ target_include_directories(
   BasicSystem PRIVATE include
 )
 
-# Following 'target_link_libraries' directive specifies to use the
+# Following 'target_link_libraries' directive specifies to use the 
 # gz-sim library when linking the 'BasicSystem' target.
 # The 'PRIVATE' keyword stipulates that the gz-sim library will not
 # automatically be included if the 'BasicSystem' target were to
-# be linked to anoter target.
+# be linked to anoter target. 
 # ${GZ_SIM_VER} is substituted by the value that is was set to above.
 target_link_libraries(BasicSystem PRIVATE
   ignition-gazebo${GZ_SIM_VER}::ignition-gazebo${GZ_SIM_VER})

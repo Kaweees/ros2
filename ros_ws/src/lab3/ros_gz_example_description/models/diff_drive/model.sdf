@@ -35,8 +35,76 @@
           </geometry>
         </collision>
       </link>
-      <!-- Left Wheel -->
-      <link name='left_wheel'>
+      <!-- Rear Left Wheel -->
+      <link name='rear_left_wheel'>
+        <pose>-0.554283 0.625029 -0.025 -1.5707 0 0</pose>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.145833</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.145833</iyy>
+            <iyz>0</iyz>
+            <izz>0.125</izz>
+          </inertia>
+        </inertial>
+        <visual name='visual_rear_left_wheel'>
+          <geometry>
+            <sphere>
+              <radius>0.3</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.2 0.2 0.2 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+        <collision name='collision_rear_left_wheel'>
+          <geometry>
+            <sphere>
+              <radius>0.3</radius>
+            </sphere>
+          </geometry>
+        </collision>
+      </link>
+      <!-- Rear Right Wheel -->
+      <link name='rear_right_wheel'>
+        <pose>-0.554282 -0.625029 -0.025 -1.5707 0 0</pose>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.145833</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.145833</iyy>
+            <iyz>0</iyz>
+            <izz>0.125</izz>
+          </inertia>
+        </inertial>
+        <visual name='visual_rear_right_wheel'>
+          <geometry>
+            <sphere>
+              <radius>0.3</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.2 0.2 0.2 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+          </material>
+        </visual>
+        <collision name='collision_rear_right_wheel'>
+          <geometry>
+            <sphere>
+              <radius>0.3</radius>
+            </sphere>
+          </geometry>
+        </collision>
+      </link>
+      <!-- Front Left Wheel -->
+      <link name='front_left_wheel'>
         <pose>0.554283 0.625029 -0.025 -1.5707 0 0</pose>
         <inertial>
           <mass>2</mass>
@@ -49,7 +117,7 @@
             <izz>0.125</izz>
           </inertia>
         </inertial>
-        <visual name='visual_left_wheel'>
+        <visual name='visual_front_left_wheel'>
           <geometry>
             <sphere>
               <radius>0.3</radius>
@@ -61,7 +129,7 @@
             <specular>0.2 0.2 0.2 1</specular>
           </material>
         </visual>
-        <collision name='collision_left_wheel'>
+        <collision name='collision_front_left_wheel'>
           <geometry>
             <sphere>
               <radius>0.3</radius>
@@ -69,8 +137,8 @@
           </geometry>
         </collision>
       </link>
-      <!-- Right Wheel -->
-      <link name='right_wheel'>
+      <!-- Front Right Wheel -->
+      <link name='front_right_wheel'>
         <pose>0.554282 -0.625029 -0.025 -1.5707 0 0</pose>
         <inertial>
           <mass>2</mass>
@@ -83,7 +151,7 @@
             <izz>0.125</izz>
           </inertia>
         </inertial>
-        <visual name='visual_right_wheel'>
+        <visual name='visual_front_right_wheel'>
           <geometry>
             <sphere>
               <radius>0.3</radius>
@@ -95,44 +163,10 @@
             <specular>0.2 0.2 0.2 1</specular>
           </material>
         </visual>
-        <collision name='collision_right_wheel'>
+        <collision name='collision_front_right_wheel'>
           <geometry>
             <sphere>
               <radius>0.3</radius>
-            </sphere>
-          </geometry>
-        </collision>
-      </link>
-
-      <link name='caster'>
-        <pose>-0.957138 -0 -0.125 0 -0 0</pose>
-        <inertial>
-          <mass>1</mass>
-          <inertia>
-            <ixx>0.1</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.1</iyy>
-            <iyz>0</iyz>
-            <izz>0.1</izz>
-          </inertia>
-        </inertial>
-        <visual name='visual_caster'>
-          <geometry>
-            <sphere>
-              <radius>0.2</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.2 0.2 0.2 1</ambient>
-            <diffuse>0.2 0.2 0.2 1</diffuse>
-            <specular>0.2 0.2 0.2 1</specular>
-          </material>
-        </visual>
-        <collision name='collision_caster'>
-          <geometry>
-            <sphere>
-              <radius>0.2</radius>
             </sphere>
           </geometry>
         </collision>
@@ -196,10 +230,10 @@
         <parent>chassis</parent>
         <child>lidar_link</child>
       </joint>
-
-      <joint name='left_wheel_joint' type='revolute'>
+      <!-- Rear Left Wheel Joint -->
+      <joint name='rear_left_wheel_joint' type='revolute'>
         <parent>chassis</parent>
-        <child>left_wheel</child>
+        <child>rear_left_wheel</child>
         <axis>
           <xyz>0 0 1</xyz>
           <limit>
@@ -208,10 +242,10 @@
           </limit>
         </axis>
       </joint>
-
-      <joint name='right_wheel_joint' type='revolute'>
+      <!-- Rear Right Wheel Joint -->
+      <joint name='rear_right_wheel_joint' type='revolute'>
         <parent>chassis</parent>
-        <child>right_wheel</child>
+        <child>rear_right_wheel</child>
         <axis>
           <xyz>0 0 1</xyz>
           <limit>
@@ -220,12 +254,30 @@
           </limit>
         </axis>
       </joint>
-
-      <joint name='caster_wheel' type='ball'>
+      <!-- Front Left Wheel Joint -->
+      <joint name='front_left_wheel_joint' type='revolute'>
         <parent>chassis</parent>
-        <child>caster</child>
+        <child>front_left_wheel</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.79769e+308</lower>
+            <upper>1.79769e+308</upper>
+          </limit>
+        </axis>
       </joint>
-
+      <!-- Front Right Wheel Joint -->
+      <joint name='front_right_wheel_joint' type='revolute'>
+        <parent>chassis</parent>
+        <child>front_right_wheel</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.79769e+308</lower>
+            <upper>1.79769e+308</upper>
+          </limit>
+        </axis>
+      </joint>
       <plugin
         filename="ignition-gazebo-diff-drive-system"
         name="ignition::gazebo::systems::DiffDrive">

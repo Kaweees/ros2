@@ -5,7 +5,7 @@ ARG BASE_IMAGE
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
-  ros-humble-turtlesim \
+  ros-${ROS_DISTRO}-turtlesim \
   stow \
   zsh \
   curl \
@@ -16,10 +16,13 @@ RUN apt-get update && apt-get install -y \
   fzf \
   libnotify-bin \
   libignition-cmake2-dev \
-  ros-humble-ros-gz \
+  ros-${ROS_DISTRO}-ros-gz \
+  ros-${ROS_DISTRO}-rqt-tf-tree \
   libignition-plugin-dev \
   libignition-common4-dev \
   libignition-gazebo6-dev \
+  ros-${ROS_DISTRO}-rosbridge-suite \
+  python3-transforms3d \
   && rm -rf /var/lib/apt/lists/*
 
 # Install the Gitstatus extension
@@ -39,7 +42,7 @@ RUN chsh -s /bin/zsh
 RUN echo "source /opt/ros/humble/setup.zsh" >> ~/.zshrc
 
 # Create and set working directory
-WORKDIR /ros2_ws
+WORKDIR /root/ros2_ws
 
 # Keep container running
 CMD ["zsh"]

@@ -103,7 +103,6 @@
           </geometry>
         </collision>
       </link>
-
       <link name='caster'>
         <pose>-0.957138 -0 -0.125 0 -0 0</pose>
         <inertial>
@@ -191,12 +190,10 @@
           <visualize>true</visualize>
         </sensor>
       </link>
-
       <joint name='lidar_joint' type='fixed'>
         <parent>chassis</parent>
         <child>lidar_link</child>
       </joint>
-
       <joint name='left_wheel_joint' type='revolute'>
         <parent>chassis</parent>
         <child>left_wheel</child>
@@ -208,7 +205,6 @@
           </limit>
         </axis>
       </joint>
-
       <joint name='right_wheel_joint' type='revolute'>
         <parent>chassis</parent>
         <child>right_wheel</child>
@@ -220,12 +216,10 @@
           </limit>
         </axis>
       </joint>
-
       <joint name='caster_wheel' type='ball'>
         <parent>chassis</parent>
         <child>caster</child>
       </joint>
-
       <plugin
         filename="ignition-gazebo-diff-drive-system"
         name="ignition::gazebo::systems::DiffDrive">

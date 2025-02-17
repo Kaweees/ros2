@@ -4,11 +4,11 @@ A template project integrating ROS 2 and Gazebo simulator.
 
 ## Included packages
 
-* `bringup` - holds launch files and high level utilities.
+* `ros_gz_example_description` - holds the sdf description of the simulated system and any other assets.
 
-* `description` - holds the sdf description of the simulated system and any other assets.
+* `ros_gz_example_gazebo` - holds gazebo specific code and configurations. Namely this is where systems end up.
 
-* `gazebo` - holds gazebo specific code and configurations. Namely this is where systems end up.
+* `ros_gz_example_bringup` - holds launch files and high level utilities.
 
 ## Install
 

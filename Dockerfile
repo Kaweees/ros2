@@ -5,7 +5,6 @@ ARG BASE_IMAGE
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
-  ros-${ROS_DISTRO}-turtlesim \
   stow \
   zsh \
   curl \
@@ -16,12 +15,14 @@ RUN apt-get update && apt-get install -y \
   fzf \
   libnotify-bin \
   libignition-cmake2-dev \
+  ros-${ROS_DISTRO}-turtlesim \
   ros-${ROS_DISTRO}-ros-gz \
   ros-${ROS_DISTRO}-rqt-tf-tree \
+  ros-${ROS_DISTRO}-rosbridge-suite \
+  ros-${ROS_DISTRO}-foxglove-bridge \
   libignition-plugin-dev \
   libignition-common4-dev \
   libignition-gazebo6-dev \
-  ros-${ROS_DISTRO}-rosbridge-suite \
   python3-transforms3d \
   && rm -rf /var/lib/apt/lists/*
 

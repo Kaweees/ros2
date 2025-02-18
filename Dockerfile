@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
   ros-${ROS_DISTRO}-rqt-tf-tree \
   ros-${ROS_DISTRO}-rosbridge-suite \
   ros-${ROS_DISTRO}-foxglove-bridge \
+  ros-${ROS_DISTRO}-rqt-graph \
   libignition-plugin-dev \
   libignition-common4-dev \
   libignition-gazebo6-dev \

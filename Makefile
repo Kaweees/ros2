@@ -1,4 +1,4 @@
-# Makefile for
+# Makefile for ROS2 Docker environment
 # Begin Variables Section
 
 ## Container Section: change these variables based on your container
@@ -19,13 +19,10 @@ endif
 ## Command Section: change these variables based on your commands
 # -----------------------------------------------------------------------------
 # Targets
-.PHONY: all $(TARGET) pull build network bash novnc clean arch
+.PHONY: all pull build network novnc ros2 zsh clean arch
 
-# Rule to build the container
-$(TARGET): all
-
-# Default target: build the program
-all: pull network build run
+# Default target: build and run everything
+all: pull network build novnc ros2 zsh
 
 # Rule to pull the container image
 pull:
@@ -33,15 +30,15 @@ pull:
 	docker pull theasp/novnc:latest
 
 # Rule to build the Docker image
-build: pull
+build:
 	docker build . -t ${TARGET} --build-arg BASE_IMAGE=${CONTAINER_NAME}
 
 # Rule to create the ROS network
 network:
 	docker network create ${NETWORK_NAME} 2>/dev/null || true
 
-# Rule to run the container
-run:
+# Rule to run the ROS2 container
+ros2:
 	docker run -d --rm --net=${NETWORK_NAME} \
 		--env="DISPLAY=novnc:0.0" \
 		--env="QT_X11_NO_MITSHM=1" \
@@ -54,27 +51,25 @@ run:
 		${TARGET} \
 		tail -f /dev/null
 
-start:
-	docker start $(TARGET)
-
 # Rule to run the VNC server
-novnc: network build
+novnc:
+	-docker rm -f novnc 2>/dev/null || true
 	docker run -d --rm --net=${NETWORK_NAME} \
-	--env="DISPLAY_WIDTH=3000" \
-	--env="DISPLAY_HEIGHT=1800" \
-	--env="RUN_XTERM=no" \
-	--env="OPENGL_DRIVER=1" \
-	--name=novnc -p=8080:8080 \
-	theasp/novnc:latest
+		--env="DISPLAY_WIDTH=3000" \
+		--env="DISPLAY_HEIGHT=1800" \
+		--env="RUN_XTERM=no" \
+		--env="OPENGL_DRIVER=1" \
+		--name=novnc -p=8080:8080 \
+		theasp/novnc:latest
 
 # Rule to run the zsh shell
 zsh:
 	docker exec -it $(TARGET) zsh
 
-# Rule to clean the container
+# Rule to clean the containers
 clean:
-	docker rm -f $(TARGET) 2>/dev/null || true
-	docker rm -f novnc 2>/dev/null || true
+	-docker rm -f $(TARGET) 2>/dev/null || true
+	-docker rm -f novnc 2>/dev/null || true
 
 # Rule to check the architecture
 arch:

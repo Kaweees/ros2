@@ -15,7 +15,7 @@ setup(
     maintainer="Miguel Villa Floran",
     maintainer_email="miguel.villa.floran@gmail.com",
     description="TODO: Package description",
-    license="TODO: License declaration",
+    license="GPLv3",
     tests_require=["pytest"],
     entry_points={
         "console_scripts": [

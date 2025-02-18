@@ -6,20 +6,28 @@ from ament_index_python.packages import get_package_share_directory
 import os
 
 
-def generate_launch_description():
-    # Include the simulation launch file
-    pkg_ros_gz_example_bringup = get_package_share_directory("ros_gz_example_bringup")
-    simulation = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_ros_gz_example_bringup, "launch", "diff_drive.launch.py")
-        )
+def generate_launch_description() -> LaunchDescription:
+    return LaunchDescription(
+        [
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(
+                        get_package_share_directory("ros_gz_example_bringup"),
+                        "launch",
+                        "diff_drive.launch.py",
+                    )
+                )
+            ),
+            Node(
+                package="ros_gz_example_application",
+                executable="draw_square_odom",
+                name="draw_square_odom",
+            ),
+            Node(
+                package="rqt_graph",
+                executable="rqt_graph",
+                name="rqt_graph",
+                output="screen",
+            ),
+        ]
     )
-
-    # Launch our square drawing node
-    draw_square_node = Node(
-        package="ros_gz_example_application",
-        executable="draw_square_odom",
-        name="draw_square_odom",
-    )
-
-    return LaunchDescription([simulation, draw_square_node])

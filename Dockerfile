@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   neovim \
   openssh-client \
   fzf \
+  tree \
   libnotify-bin \
   libignition-cmake2-dev \
   ros-${ROS_DISTRO}-turtlesim \

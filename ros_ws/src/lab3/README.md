@@ -47,30 +47,34 @@ Or start by creating a workspace and cloning the template repository:
 
 1. Install dependencies
 
-    ```bash
-    cd ~/template_ws
-    source /opt/ros/<ROS_DISTRO>/setup.bash
-    sudo rosdep init
-    rosdep update
-    rosdep install --from-paths src --ignore-src -r -i -y --rosdistro <ROS_DISTRO>
-    ```
+   ```bash
+   cd ~/template_ws
+   source /opt/ros/<ROS_DISTRO>/setup.bash
+   sudo rosdep init
+   rosdep update
+   rosdep install --from-paths src --ignore-src -r -i -y --rosdistro <ROS_DISTRO>
+   ```
 
 1. Build the project
 
-    ```bash
-    colcon build --cmake-args -DBUILD_TESTING=ON
-    ```
+   ```bash
+   colcon build --cmake-args -DBUILD_TESTING=ON
+   ```
 
 1. Source the workspace
 
-    ```bash
-    . ~/template_ws/install/setup.sh
-    ```
+   ```bash
+   . ~/template_ws/install/setup.sh
+   ```
 
 1. Launch the simulation
 
-    ```bash
-    ros2 launch ros_gz_example_bringup diff_drive.launch.py
-    ```
+   ```bash
+   ros2 launch ros_gz_example_bringup diff_drive.launch.py
+   ```
 
 For a more detailed guide on using this template see [documentation](https://gazebosim.org/docs/latest/ros_gz_project_template_guide).
+
+```bash
+clear && colcon build && source install/setup.zsh && ros2 launch ros_gz_example_application draw_square_odom_launch.py
+```

@@ -5,7 +5,7 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 import math
-from tf_transformations import euler_from_quaternion
+from transforms3d.euler import quat2euler as euler_from_quaternion
 
 
 class DrawSquareOdom(Node):

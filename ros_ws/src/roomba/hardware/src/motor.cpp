@@ -10,10 +10,10 @@ using namespace gobilda_robot;
 #include "rclcpp/rclcpp.hpp"
 
 Motor::Motor(int pin, std::string name)
-    : pin_{pin}, name_{name}
+  : pin_ {pin},
+    name_ {name}
 
 {
-
   // The frequency for both motors need to be calculated via
   // the specs on the GoBilda Motor Controllers.
   // The motor controllers respond to signals at 1050 micro-secs -- 1950 micro-secs
@@ -25,8 +25,7 @@ Motor::Motor(int pin, std::string name)
 
 Motor::~Motor() { trySetVelocity(0.0); }
 
-int Motor::convertVelocity(double vel){
-  
+int Motor::convertVelocity(double vel) {
   // Variable to return the PWM speed for the motors
   int newValue = 0;
   // Values for the max and min from the ros2_diff_drive controller
@@ -37,15 +36,22 @@ int Motor::convertVelocity(double vel){
   float pwmMax, pwmMin;
 
   // These values are for when the robot is turning in place
-  if (-2.0 <= vel && vel <= 2.0) {rosMax = 2.0, rosMin = -2.0;}
+  if (-2.0 <= vel && vel <= 2.0) {
+    rosMax = 2.0, rosMin = -2.0;
+  }
   // These values are for when the robot is moving forward
-  else {rosMax = 40.0; rosMin = -40.0;}
+  else {
+    rosMax = 40.0;
+    rosMin = -40.0;
+  }
 
   // Again we are assuming that pin 15 is on the left motor
   if (pin_ == 15) {
-    pwmMax = 88.0; pwmMin = 168.0;
+    pwmMax = 88.0;
+    pwmMin = 168.0;
   } else {
-    pwmMax = 168.0; pwmMin = 88.0;
+    pwmMax = 168.0;
+    pwmMin = 88.0;
   }
 
   float oldRange = rosMax - rosMin;
@@ -55,8 +61,7 @@ int Motor::convertVelocity(double vel){
   return newValue;
 }
 
-bool Motor::trySetVelocity(double velocity) 
-{
+bool Motor::trySetVelocity(double velocity) {
   // Convert the velocity computed by the diff_driver code
   // into a range from 89-167 which corresponds to the
   // correct values for the frequency used above
@@ -65,13 +70,10 @@ bool Motor::trySetVelocity(double velocity)
   // sure the correct signal is sent to the correct
   // motor
   int PWMstat;
-  RCLCPP_INFO(
-    rclcpp::get_logger("GobildaSystemHardware"),
-    "PWM sent to the controller = %d", convertVelocity(velocity)
-  );
+  RCLCPP_INFO(rclcpp::get_logger("GobildaSystemHardware"), "PWM sent to the controller = %d",
+              convertVelocity(velocity));
   PWMstat = gpioPWM(pin_, convertVelocity(velocity));
 
   if (PWMstat < 0) return false;
   else return true;
-
 }

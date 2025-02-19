@@ -40,7 +40,7 @@ A template for developing production-ready ROS2 (Humble Hawksbill) applications.
 
 ### Prerequisites
 
-Before attempting to build this project, make sure you have [Python 3.10 or higher](https://www.python.org/downloads/) and [uv](https://docs.astral.sh/uv/#getting-started) installed on your machine.
+Before attempting to build this project, make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your machine.
 
 ### Installation
 

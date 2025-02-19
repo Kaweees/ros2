@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+from glob import glob
 
 package_name = "lab1"
 
@@ -9,6 +10,7 @@ setup(
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
         ("share/" + package_name, ["package.xml"]),
+        ("share/" + package_name + "/launch", glob("launch/*.py")),
     ],
     install_requires=["setuptools"],
     zip_safe=True,
@@ -19,9 +21,9 @@ setup(
     tests_require=["pytest"],
     entry_points={
         "console_scripts": [
-            "talker = src.talker:main",
-            "listener = src.listener:main",
-            "squared = src.squared:main",
+            f"squared = {package_name}.src.squared:main",
+            f"talker = {package_name}.src.talker:main",
+            f"listener = {package_name}.src.listener:main",
         ],
     },
 )

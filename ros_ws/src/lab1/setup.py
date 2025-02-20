@@ -21,9 +21,9 @@ setup(
     tests_require=["pytest"],
     entry_points={
         "console_scripts": [
-            f"squared = {package_name}.src.squared:main",
-            f"talker = {package_name}.src.talker:main",
-            f"listener = {package_name}.src.listener:main",
+            "talker = src.talker:main",
+            "listener = src.listener:main",
+            "squared = src.squared:main",
         ],
     },
 )

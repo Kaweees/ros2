@@ -1,38 +1,18 @@
-```zsh
-ros2 run demo_nodes_cpp listener
-ros2 run demo_nodes_cpp talker
-ros2_graph /talker /listener -o ./src/lab1/chatter_diagram.md
-```
-
-```zsh
-rm -rf build/ install/ log/ && clear && colcon build --symlink-install --packages-select lab1 && source install/setup.zsh && ros2 launch lab1 listener_squared_launch.py
-ros2_graph /talker /listener /squared -o ./src/lab1/listener_squared_diagram.md
-```
-
-```sh
-ros_ws/src/lab1/
-└── src/
-   ├── __init__.py
-   ├── talker.py
-   ├── listener.py
-   └── squared.py
-```
-
 ```mermaid
 flowchart LR
+
 /talker[ /talker ]:::main
 /listener[ /listener ]:::main
-/squared[ /squared ]:::main
 /listener[ /listener ]:::node
-/squared[ /squared ]:::node
-/integer_topic([ /integer_topic<br>std_msgs/msg/Int32 ]):::topic
-/squared_topic([ /squared_topic<br>std_msgs/msg/Int32 ]):::bugged
-/integer_topic --> /listener
-/integer_topic --> /squared
-/integer_topic --> /listener
-/integer_topic --> /squared
-/talker --> /integer_topic
-/squared --> /squared_topic
+/chatter([ /chatter<br>std_msgs/msg/String ]):::topic
+
+
+/chatter --> /listener
+/chatter --> /listener
+/talker --> /chatter
+
+
+
 
 subgraph keys[<b>Keys<b/>]
 subgraph nodes[<b><b/>]
@@ -59,4 +39,5 @@ classDef bugged opacity:0.9,fill:#933,stroke:#800,stroke-width:2px,color:#fff
 style keys opacity:0.15,fill:#FFF
 style nodes opacity:0.15,fill:#FFF
 style connection opacity:0.15,fill:#FFF
+
 ```

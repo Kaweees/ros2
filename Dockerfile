@@ -5,6 +5,8 @@ ARG BASE_IMAGE
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
+  python3-pip \
+  python3-venv \
   stow \
   zsh \
   curl \
@@ -16,6 +18,7 @@ RUN apt-get update && apt-get install -y \
   tree \
   libnotify-bin \
   libignition-cmake2-dev \
+  ros-${ROS_DISTRO}-demo-nodes-cpp \
   ros-${ROS_DISTRO}-turtlesim \
   ros-${ROS_DISTRO}-ros-gz \
   ros-${ROS_DISTRO}-rqt-tf-tree \
@@ -27,6 +30,9 @@ RUN apt-get update && apt-get install -y \
   libignition-gazebo6-dev \
   python3-transforms3d \
   && rm -rf /var/lib/apt/lists/*
+
+RUN python3 -m pip install --no-cache-dir --upgrade pip \
+  ros2-graph
 
 # Install the Gitstatus extension
 RUN git clone --depth=1 https://github.com/romkatv/gitstatus.git ~/gitstatus

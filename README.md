@@ -31,8 +31,8 @@ A template for developing production-ready ROS2 (Humble Hawksbill) applications.
 [![ROS2][ROS2-shield]][ROS2-url]
 [![C++][C++-shield]][C++-url]
 [![Python][Python-shield]][Python-url]
-[![GitHub Actions][github-actions-shield]][github-actions-url]
 [![Docker][Docker-shield]][Docker-url]
+[![GitHub Actions][github-actions-shield]][github-actions-url]
 
 <!-- GETTING STARTED -->
 
@@ -130,7 +130,7 @@ The source code for this project is distributed under the terms of the GNU Gener
 [ROS2-url]: https://www.ros.org/
 [C++-shield]: https://img.shields.io/badge/C++-%23008080.svg?style=for-the-badge&logo=c%2B%2B&logoColor=004482&labelColor=222222&color=004482
 [C++-url]: https://isocpp.org/
-[Python-shield]: https://img.shields.io/badge/Python-%23008080.svg?style=for-the-badge&logo=python&logoColor=306998&labelColor=222222&color=306998
+[Python-shield]: https://img.shields.io/badge/Python-%23008080.svg?style=for-the-badge&logo=python&logoColor=FFDD54&labelColor=222222&color=306998
 [Python-url]: https://www.python.org/
 [github-actions-shield]: https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=2671E5&labelColor=222222&color=2671E5
 [github-actions-url]: https://github.com/features/actions

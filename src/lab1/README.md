@@ -10,7 +10,7 @@ ros2_graph /talker /listener /squared -o ./src/lab1/listener_squared_diagram.md
 ```
 
 ```sh
-ros_ws/src/lab1/
+ros2_ws/src/lab1/
 └── src/
    ├── __init__.py
    ├── talker.py

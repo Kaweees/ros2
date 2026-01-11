@@ -10,7 +10,7 @@ TARGET := ros2
 NETWORK_NAME := ros
 # The base container image based on your architecture.
 ARCH := $(shell uname -m)
-ifeq ($(ARCH), arm64) # ARM64
+ifneq (,$(filter arm64 aarch64 armv7l armv8l armv6l,$(ARCH)))
 	CONTAINER_NAME := arm64v8/ros:humble
 else # x86_64
 	CONTAINER_NAME := osrf/ros:humble-desktop

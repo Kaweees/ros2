@@ -26,26 +26,28 @@ all: pull network build novnc $(TARGET) zsh
 
 # Rule to pull the container image
 pull:
-	docker pull ${CONTAINER_NAME}
-	docker pull theasp/novnc:latest
+	@echo "Pulling container image..."
+	@docker pull ${CONTAINER_NAME}
+	@docker pull theasp/novnc:latest
 
 # Rule to build the Docker image
 build:
-	docker build . -t ${TARGET} --build-arg BASE_IMAGE=${CONTAINER_NAME}
+	@echo "Building container image..."
+	@docker build . -t ${TARGET} --build-arg BASE_IMAGE=${CONTAINER_NAME}
 
 # Rule to create the ROS network
 network:
-	docker network create ${NETWORK_NAME} 2>/dev/null || true
+	@docker network create ${NETWORK_NAME} 2>/dev/null || true
 
 # Rule to run the ROS2 container
 $(TARGET):
-	docker run -d --rm --net=${NETWORK_NAME} \
+	@docker run -d --rm --net=${NETWORK_NAME} \
 		--env="DISPLAY=novnc:0.0" \
 		--env="QT_X11_NO_MITSHM=1" \
 		--env="LIBGL_ALWAYS_INDIRECT=0" \
 		-v zsh_data:/root/.config/zsh \
 		-v zsh_history:/root/.local/share/zinit \
-		-v $(PWD)/src/:/root/mxck2_ws/:delegated \
+		-v $(PWD)/src/:/root/ros2_ws/:delegated \
 		-v $(SSH_AUTH_SOCK):/ssh-agent \
 		-e SSH_AUTH_SOCK=/ssh-agent \
 		-p 8765:8765 \
@@ -55,8 +57,8 @@ $(TARGET):
 
 # Rule to run the VNC server
 novnc:
-	-docker rm -f novnc 2>/dev/null || true
-	docker run -d --rm --net=${NETWORK_NAME} \
+	@docker rm -f novnc 2>/dev/null || true
+	@docker run -d --rm --net=${NETWORK_NAME} \
 		--env="DISPLAY_WIDTH=3000" \
 		--env="DISPLAY_HEIGHT=1800" \
 		--env="RUN_XTERM=no" \
@@ -66,12 +68,12 @@ novnc:
 
 # Rule to run the zsh shell
 zsh:
-	docker exec -it $(TARGET) zsh
+	@docker exec -it $(TARGET) zsh
 
 # Rule to clean the containers
 clean:
-	-docker rm -f $(TARGET) 2>/dev/null || true
-	-docker rm -f novnc 2>/dev/null || true
+	@docker rm -f $(TARGET) 2>/dev/null || true
+	@docker rm -f novnc 2>/dev/null || true
 
 # Rule to check the architecture
 arch:

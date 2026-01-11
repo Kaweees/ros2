@@ -19,10 +19,10 @@ endif
 ## Command Section: change these variables based on your commands
 # -----------------------------------------------------------------------------
 # Targets
-.PHONY: all pull build network novnc ros2 zsh clean arch
+.PHONY: all pull build network novnc $(TARGET) zsh clean arch
 
 # Default target: build and run everything
-all: pull network build novnc ros2 zsh
+all: pull network build novnc $(TARGET) zsh
 
 # Rule to pull the container image
 pull:
@@ -38,7 +38,7 @@ network:
 	docker network create ${NETWORK_NAME} 2>/dev/null || true
 
 # Rule to run the ROS2 container
-ros2:
+$(TARGET):
 	docker run -d --rm --net=${NETWORK_NAME} \
 		--env="DISPLAY=novnc:0.0" \
 		--env="QT_X11_NO_MITSHM=1" \

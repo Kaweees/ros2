@@ -48,52 +48,51 @@ To get a local copy of the project up and running on your machine, follow these 
 
 1. Clone the project repository
 
-   ```sh
-   git clone https://github.com/Kaweees/ros2.git
-   sudo chown -R $USER:$(id -gn $USER) ros2
-   cd ros2/
-
-   ```
+    ```sh
+    git clone https://github.com/Kaweees/ros2.git
+    sudo chown -R $USER:$(id -gn $USER) ros2
+    cd ros2/
+    ```
 
 2. Install the environment
 
-   ```sh
-   make
-   ```
+    ```sh
+    make
+    ```
 
 3. Create a new ROS2 workspace
 
-   ```sh
-   mkdir -p ros2_ws/src
-   cd ros2_ws
-   ```
+    ```sh
+    mkdir -p ros2_ws/src
+    cd ros2_ws
+    ```
 
 4. Create a new ROS2 package
 
-   ```sh
-   ros2 pkg create <package_name> --build-type ament_cmake --dependencies rclcpp rclpy std_msgs # C++
-   ros2 pkg create <package_name> --build-type ament_python # Python
-   ```
+    ```sh
+    ros2 pkg create <package_name> --build-type ament_cmake --dependencies rclcpp rclpy std_msgs # C++
+    ros2 pkg create <package_name> --build-type ament_python # Python
+    ```
 
 5. Build the package
 
-   ```sh
-   colcon build --packages-select <package_name>
-   ```
+    ```sh
+    colcon build --packages-select <package_name>
+    ```
 
 6. Source the project
 
-   ```sh
-   source install/setup.bash   # if using bash
-   # OR
-   source install/setup.zsh    # if using zsh
-   ```
+    ```sh
+    source install/setup.bash   # if using bash
+    # OR
+    source install/setup.zsh    # if using zsh
+    ```
 
 7. Run the package node
 
-   ```sh
-   ros2 run <package_name> <node_name>
-   ```
+    ```sh
+    ros2 run <package_name> <node_name>
+    ```
 
 <!-- PROJECT FILE STRUCTURE -->
 
